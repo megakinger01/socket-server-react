@@ -8,51 +8,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 </head>
 <body class="container">
-    <h2 class="mt-5">Mini Chat</h2>
+    <h2 class="mt-5">Acceso Denegado</h2>
     <hr/>
 
-    <form id="mifomrmulario">
-        <div class="row">
-            <div class="col">
-                <input type="text" id="txtmsj" placeholder="mensaje" class="form-control">
-            </div>
-
-            <div class="col-4">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-            </div>
-        </div>
-    </form>
-
-    <div class="row">
-        <div class="col mt-2">
-            <ul id="mismensajes">
-              
-            </ul>
-        </div>
-    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.5/socket.io.js"></script>
 
     <script>
-       const socket =  io('https://react-socket-server-backend.herokuapp.com/')
+       const socket =  io('http://localhost:8080/')
 
-
-    //    REFERENCIAS AL HTML de DOM
-       const formulario = document.querySelector('#mifomrmulario')
-       const mensajes = document.querySelector('#mismensajes')
-       const txtMensajes = document.querySelector('#txtmsj')
-
-
-       formulario.addEventListener('submit' , (ev) => {
-            ev.preventDefault();
-
-            const nuevoMensaje = txtMensajes.value;
-
-            socket.emit('mensaje-to-server', { texto: nuevoMensaje})
-       })
+        socket.on('connect', () => {
+            console.log('conectado');
+        })
 
        socket.on('mensaje-from-server', (data) => {
-            mensajes.innerHTML += `<li>${ data.texto }</li>`
+            
        })
 
        
